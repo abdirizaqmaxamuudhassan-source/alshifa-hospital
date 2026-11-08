@@ -1,0 +1,15 @@
+
+:root{--primary:#0b6fb8;--secondary:#08508a;--accent:#7bcf9b;--primary-fg:#fff;--header-bg:#0b6fb8;--header-color:#e8f3fb;--header-branding-color:#fff;
+--button-bg:#0b6fb8;--button-hover-bg:#08508a;--default-button-bg:#08508a;--default-button-hover-bg:#063d6b;--link-fg:#0b6fb8;--link-hover-color:#d62828;
+--breadcrumbs-bg:#08508a;--object-tools-bg:#2e8b57;--object-tools-hover-bg:#237044;--body-bg:#f4f9fc}
+body,input,select,textarea,button{font-family:Inter,"Segoe UI",sans-serif}
+#header{border-bottom:4px solid #d62828;padding:14px 28px}
+#site-name a{font:700 1.3rem Poppins,sans-serif}#site-name .x{color:#ff6b6b}#site-name small{font-weight:400;opacity:.8}
+.site-link{background:rgba(255,255,255,.15);border-radius:8px;padding:6px 12px;margin-left:6px;text-decoration:none!important}
+.module{border-radius:12px;overflow:hidden;border:1px solid #dbe9f1;box-shadow:0 4px 14px rgba(11,111,184,.07);background:#fff}
+.module caption,.module h2{background:linear-gradient(135deg,#0b6fb8,#2e9ac9);font-family:Poppins,sans-serif;letter-spacing:.3px}
+#content{padding:22px 28px}#content h1{font-family:Poppins,sans-serif;color:#08508a}
+.button,input[type=submit],.object-tools a{border-radius:8px}
+#changelist table thead th{background:#eaf4fa}
+.badge{padding:3px 10px;border-radius:99px;color:#fff;font-weight:600;font-size:.75rem}
+.b-pending{background:#e0a100}.b-approved{background:#2e8b57}.b-rejected{background:#d62828}.b-completed{background:#0b6fb8}

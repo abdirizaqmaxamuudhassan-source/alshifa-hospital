@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}<section class="container sec"><h1 class="sec-t">Our Doctors</h1>
+<form class="row g-2 mb-4"><div class="col-md-6"><input class="form-control" name="q" value="{{ q }}" placeholder="Search by name or specialization"></div>
+<div class="col-md-4"><select class="form-select" name="dept"><option value="">All departments</option>{% for d in departments %}<option value="{{ d.id }}" {% if dept == d.id|stringformat:'s' %}selected{% endif %}>{{ d.name }}</option>{% endfor %}</select></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">Search</button></div></form>
+<div class="row g-3">{% for d in doctors %}{% include 'doc_card.html' %}{% empty %}<p>No doctors found.</p>{% endfor %}</div></section>{% endblock %}

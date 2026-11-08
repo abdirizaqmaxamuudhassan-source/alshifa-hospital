@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% block content %}
+<section class="hero"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-7 reveal">
+<span class="pill"><i class="bi bi-shield-check"></i> Trusted care since 1998</span>
+<h1><span>Your health, in safe hands.</span></h1>
+<p class="lead">Al-Shifa Modern Hospital brings specialist doctors, advanced diagnostics and 24/7 emergency care under one roof.</p>
+<a class="btn btn-primary btn-lg me-2" href="{% url 'book' %}"><i class="bi bi-calendar-check"></i> Book Appointment</a>
+<a class="btn btn-outline-primary btn-lg" href="{% url 'doctors' %}">Find a Doctor</a></div>
+<div class="col-lg-5 reveal"><div class="card-x emergency"><i class="bi bi-telephone-inbound-fill"></i><h4>Emergency 24/7</h4><div class="display-6">+252 61 0000000</div><p class="mb-0">Ambulance: +252 61 1111111</p></div>
+<div class="card-x mt-3"><h5><i class="bi bi-clock"></i> Opening Hours</h5><table class="table table-sm mb-0"><tr><td>Mon - Fri</td><td>8:00 - 20:00</td></tr><tr><td>Saturday</td><td>9:00 - 17:00</td></tr><tr><td>Sunday</td><td>Emergency & OPD 10:00 - 14:00</td></tr></table></div></div></div></div></section>
+<section class="container sec"><h2 class="sec-t">Our Medical Services</h2><div class="row g-3">{% for s in services %}<div class="col-6 col-lg-4 reveal"><div class="card-x h-100"><i class="bi {{ s.icon }} ico"></i><h5>{{ s.title }}</h5><p>{{ s.description }}</p></div></div>{% endfor %}</div></section>
+<section class="container sec"><h2 class="sec-t">Departments</h2><div class="row g-3">{% for d in departments %}<div class="col-6 col-md-3 reveal"><a href="{% url 'doctors' %}?dept={{ d.id }}" class="card-x d-block text-center text-decoration-none h-100"><i class="bi {{ d.icon }} ico"></i><h6>{{ d.name }}</h6></a></div>{% endfor %}</div></section>
+<section class="container sec"><h2 class="sec-t">Featured Doctors</h2><div class="row g-3">{% for d in doctors %}{% include 'doc_card.html' %}{% endfor %}</div></section>
+{% if reviews %}<section class="container sec"><h2 class="sec-t">Patient Testimonials</h2><div class="row g-3">{% for t in reviews %}<div class="col-md-4 reveal"><div class="card-x h-100"><i class="bi bi-quote ico"></i><p>{{ t.text }}</p><strong>{{ t.name }}</strong></div></div>{% endfor %}</div></section>{% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}<section class="container sec"><h1 class="sec-t">About Al-Shifa</h1>
+<div class="row g-3"><div class="col-lg-6"><div class="card-x h-100"><h4>Our History</h4><p>Founded in 1998 as a 30-bed clinic, Al-Shifa has grown into a multi-specialty hospital serving thousands of families every year.</p></div></div>
+<div class="col-lg-3"><div class="card-x h-100"><h4><i class="bi bi-bullseye"></i> Mission</h4><p>Deliver safe, affordable, compassionate care.</p></div></div>
+<div class="col-lg-3"><div class="card-x h-100"><h4><i class="bi bi-eye"></i> Vision</h4><p>To be the region's most trusted healthcare partner.</p></div></div>
+<div class="col-md-6"><div class="card-x h-100"><h4>Facilities</h4><ul><li>24/7 emergency & trauma unit</li><li>Modern operating theatres</li><li>ICU & NICU</li><li>In-house pharmacy & laboratory</li></ul></div></div>
+<div class="col-md-6"><div class="card-x h-100"><h4>Medical Equipment</h4><ul><li>MRI & CT scanners</li><li>Digital X-ray & ultrasound</li><li>ECG / Echo cardiography</li><li>Automated lab analyzers</li></ul></div></div></div>
+<h2 class="sec-t mt-5">Our Medical Team</h2><div class="row g-3">{% for d in doctors %}{% include 'doc_card.html' %}{% endfor %}</div></section>{% endblock %}

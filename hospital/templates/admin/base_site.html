@@ -1,0 +1,5 @@
+{% extends "admin/base.html" %}{% load static %}
+{% block title %}{{ title }} | Al-Shifa Admin{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'css/admin.css' %}">{% endblock %}
+{% block branding %}<h1 id="site-name"><a href="{% url 'admin:index' %}"><span class="x">&#10010;</span> Al-Shifa Hospital <small>Admin</small></a></h1>{% endblock %}
+{% block nav-global %}<a class="site-link" href="{% url 'home' %}">&larr; View website</a> <a class="site-link" href="{% url 'dashboard' %}">Dashboard</a>{% endblock %}

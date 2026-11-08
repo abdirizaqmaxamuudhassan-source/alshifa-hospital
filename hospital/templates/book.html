@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block content %}<section class="container sec" style="max-width:720px"><h1 class="sec-t">Book an Appointment</h1>
+<form method="post" class="card-x">{% csrf_token %}{% include 'form.html' %}<button class="btn btn-primary btn-lg w-100">Request Appointment</button>
+<p class="small text-muted mt-2 mb-0">Your request is Pending until approved by hospital staff.</p></form></section>
+<script>window.DOCTOR_DEPTS={{ doctor_depts|safe }};</script>{% endblock %}

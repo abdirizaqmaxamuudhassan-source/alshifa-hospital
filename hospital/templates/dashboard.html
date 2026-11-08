@@ -1,0 +1,40 @@
+{% extends 'base.html' %}{% block content %}<div class="container-fluid"><div class="row">
+<aside class="col-lg-2 side p-3"><h6 class="text-uppercase small">Manage</h6><nav class="nav flex-column">
+<a class="nav-link" href="{% url 'dashboard' %}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+{% if user.is_staff %}<a class="nav-link" href="{% url 'admin:hospital_patient_changelist' %}"><i class="bi bi-people"></i> Patients</a>
+<a class="nav-link" href="{% url 'admin:hospital_doctor_changelist' %}"><i class="bi bi-person-badge"></i> Doctors</a>
+<a class="nav-link" href="{% url 'admin:hospital_appointment_changelist' %}"><i class="bi bi-calendar-check"></i> Appointments</a>
+<a class="nav-link" href="{% url 'admin:hospital_department_changelist' %}"><i class="bi bi-building"></i> Departments</a>
+<a class="nav-link" href="{% url 'admin:auth_user_changelist' %}"><i class="bi bi-person-gear"></i> Staff & Users</a>
+<a class="nav-link" href="{% url 'admin:hospital_payment_changelist' %}"><i class="bi bi-cash"></i> Payments</a>
+<a class="nav-link" href="{% url 'admin:hospital_medicine_changelist' %}"><i class="bi bi-capsule"></i> Pharmacy</a>
+<a class="nav-link" href="{% url 'admin:hospital_labresult_changelist' %}"><i class="bi bi-eyedropper"></i> Laboratory</a>
+<a class="nav-link" href="{% url 'admin:hospital_prescription_changelist' %}"><i class="bi bi-file-medical"></i> Prescriptions</a>
+<a class="nav-link" href="{% url 'admin:hospital_service_changelist' %}"><i class="bi bi-window"></i> Website Content</a>{% endif %}
+<a class="nav-link" href="{% url 'report' %}"><i class="bi bi-download"></i> Report (CSV)</a></nav></aside>
+<main class="col-lg-10 p-3 p-lg-4"><h2>Dashboard</h2><div class="row g-3 mb-4">
+<div class="col-6 col-xl-2"><div class="stat"><i class="bi bi-people"></i><b>{{ patients }}</b>Patients</div></div>
+<div class="col-6 col-xl-2"><div class="stat"><i class="bi bi-person-badge"></i><b>{{ doctors }}</b>Doctors</div></div>
+<div class="col-6 col-xl-2"><div class="stat"><i class="bi bi-calendar-check"></i><b>{{ total }}</b>Appointments</div></div>
+<div class="col-6 col-xl-2"><div class="stat"><i class="bi bi-calendar-day"></i><b>{{ today }}</b>Today</div></div>
+<div class="col-6 col-xl-2"><div class="stat"><i class="bi bi-building"></i><b>{{ depts }}</b>Departments</div></div>
+<div class="col-6 col-xl-2"><div class="stat"><i class="bi bi-cash-stack"></i><b>{{ revenue }}</b>Revenue (paid)</div></div></div>
+<div class="row g-3 mb-4"><div class="col-lg-6"><div class="card-x"><h6>Monthly Appointments</h6><canvas id="c1"></canvas></div></div>
+<div class="col-lg-6"><div class="card-x"><h6>Patient Growth</h6><canvas id="c2"></canvas></div></div>
+<div class="col-lg-6"><div class="card-x"><h6>Revenue Analytics</h6><canvas id="c3"></canvas></div></div>
+<div class="col-lg-6"><div class="card-x"><h6>Appointments by Status</h6><canvas id="c4"></canvas></div></div></div>
+<div class="card-x"><h5>Appointments</h5><form class="row g-2 mb-3"><div class="col-md-6"><input class="form-control" name="q" value="{{ q }}" placeholder="Search name or phone"></div>
+<div class="col-md-4"><select class="form-select" name="status"><option value="">All statuses</option>
+<option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option><option value="approved" {% if status == 'approved' %}selected{% endif %}>Approved</option><option value="rejected" {% if status == 'rejected' %}selected{% endif %}>Rejected</option><option value="completed" {% if status == 'completed' %}selected{% endif %}>Completed</option></select></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">Filter</button></div></form>
+<div class="table-responsive"><table class="table align-middle"><tr><th>Patient</th><th>Phone</th><th>Doctor</th><th>When</th><th>Status</th><th>Action</th></tr>
+{% for a in appts %}<tr><td>{{ a.name }}</td><td>{{ a.phone }}</td><td>{{ a.doctor }}<br><small>{{ a.department }}</small></td><td>{{ a.date }} {{ a.time }}</td><td>{{ a.get_status_display }}</td>
+<td><form method="post" class="d-flex gap-1">{% csrf_token %}
+<button formaction="{% url 'set_status' a.id 'approved' %}" class="btn btn-sm btn-success">Approve</button>
+<button formaction="{% url 'set_status' a.id 'rejected' %}" class="btn btn-sm btn-danger">Reject</button>
+<button formaction="{% url 'set_status' a.id 'completed' %}" class="btn btn-sm btn-outline-primary">Done</button></form></td></tr>{% empty %}<tr><td colspan="6">No appointments.</td></tr>{% endfor %}</table></div></div></main></div></div>{% endblock %}
+{% block scripts %}<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script><script>
+const D={c1:{{ monthly|safe }},c2:{{ growth|safe }},c3:{{ rev|safe }},c4:{{ by_status|safe }}};
+const T={c1:['bar','Appointments'],c2:['line','New patients'],c3:['bar','Revenue'],c4:['doughnut','Count']};
+for(const k in D){new Chart(document.getElementById(k),{type:T[k][0],data:{labels:D[k][0],datasets:[{label:T[k][1],data:D[k][1],backgroundColor:['#0b6fb8','#7bcf9b','#f2b94b','#e5675f'],borderColor:'#0b6fb8',tension:.3}]},options:{plugins:{legend:{display:k=='c4'}}}})}
+</script>{% endblock %}
